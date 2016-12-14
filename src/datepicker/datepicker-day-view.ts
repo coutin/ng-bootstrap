@@ -10,13 +10,15 @@ import {NgbDateStruct} from './ngb-date-struct';
       border-radius: 0.25rem;
     }
   `],
-  host: {
-    '[class.bg-primary]': 'selected',
-    '[class.text-white]': 'selected',
-    '[class.text-muted]': 'isMuted()',
-    '[class.btn-secondary]': '!disabled'
-  },
-  template: `{{ date.day }}`
+  template: `<button role="cell" class="btn btn-sm btn-block" 
+              [attr.aria-selected]="selected" [attr.aria-disabled]="disabled" 
+              [class.bg-primary]="selected"
+              [class.text-white]="selected"
+              [class.text-muted]= "isMuted()"
+              [class.btn-secondary]="!disabled">
+    <span>{{ date.day }}</span>
+    <span class="sr-only"></span>
+  </button>`
 })
 export class NgbDatepickerDayView {
   @Input() currentMonth: number;
