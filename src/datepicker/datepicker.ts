@@ -85,7 +85,9 @@ export interface NgbDatepickerNavigateEvent {
             [showWeekNumbers]="showWeekNumbers"
             [disabled]="disabled"
             [outsideDays]="displayMonths === 1 ? outsideDays : 'hidden'"
-            (select)="onDateSelect($event)">
+            [focusedDate]="focusedDate"
+            (select)="onDateSelect($event)"
+            (focusDate)="onNavigateDateSelect($event)">
           </ngb-datepicker-month-view>
         </td>
       </tr>
@@ -99,8 +101,11 @@ export class NgbDatepicker implements OnChanges,
   _maxDate: NgbDate;
   _minDate: NgbDate;
 
+  focusedDate: NgbDate;
+
   model: NgbDate;
   months: MonthViewModel[] = [];
+
 
   /**
    * Reference for the custom template for the day display
@@ -235,6 +240,8 @@ export class NgbDatepicker implements OnChanges,
   }
 
   onNavigateDateSelect(date: NgbDate) {
+    // focus date
+    this.focusedDate = date;
     this._setViewWithinLimits(date);
     this._updateData();
   }
